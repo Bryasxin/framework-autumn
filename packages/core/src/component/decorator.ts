@@ -4,7 +4,7 @@ import {
 } from "./component-extension-guard";
 import "reflect-metadata";
 import {
-	COMPONENT_DEPENDENCIES,
+	COMPONENT_CONSTRUCTOR_DEPENDENCIES,
 	COMPONENT_NAME,
 	COMPONENT_SCOPE,
 } from "../metadata";
@@ -41,7 +41,7 @@ export const Component = (options: {
 		Reflect.defineMetadata(COMPONENT_NAME, name, target);
 		Reflect.defineMetadata(COMPONENT_SCOPE, scope, target);
 		Reflect.defineMetadata(
-			COMPONENT_DEPENDENCIES,
+			COMPONENT_CONSTRUCTOR_DEPENDENCIES,
 			constructorDependencies,
 			target,
 		);

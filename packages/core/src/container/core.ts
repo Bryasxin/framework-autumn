@@ -1,6 +1,6 @@
 import { ContainerExtensionManager } from "./extension-manager";
 import {
-	getComponentDependencies,
+	getComponentConstructorDependencies,
 	getComponentName,
 	getComponentScope,
 } from "../component";
@@ -52,7 +52,9 @@ export class Container {
 		await this.extensionManager.preInitializeComponent();
 
 		const dependencies = await Promise.all(
-			getComponentDependencies(component).map((dep) => this.get(dep)),
+			getComponentConstructorDependencies(component).map((dep) =>
+				this.get(dep),
+			),
 		);
 
 		let instance = new component(...dependencies);
