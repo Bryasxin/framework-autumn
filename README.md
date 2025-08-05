@@ -1,4 +1,4 @@
-# Spring-like Framework
+# Autumn
 
 一个类似 Spring 的轻量级 JavaScript/TypeScript 依赖注入框架，基于 Bun 运行时构建。
 
@@ -11,35 +11,10 @@
 - 装饰器支持
 - 完整的 TypeScript 类型支持
 
-## 安装
-
-```bash
-bun install
-```
-
-## 构建和打包
-
-```bash
-# 运行测试
-bun test
-
-# 构建类型定义
-bun run build
-
-# 打包成单个 JavaScript 文件
-bun run bundle
-
-# 同时构建类型定义和打包
-bun run build:all
-
-# 打包并压缩
-bun run bundle:minify
-```
-
 ## 使用示例
 
 ```typescript
-import { Component, Container } from "spring-like";
+import { Component, Container } from "autumn";
 
 // 定义一个简单的服务组件
 @Component({})
@@ -67,11 +42,4 @@ container.register(MyController);
 // 获取并使用组件
 const controller = await container.get(MyController);
 console.log(controller.handleRequest());
-```
-
-## 开发
-
-```bash
-# 监听模式打包
-bun run bundle:watch
 ```
