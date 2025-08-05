@@ -5,7 +5,7 @@ import {
 	getComponentScope,
 } from "../component";
 import type { Constructor } from "type-fest";
-import { ComponentScope } from "../component/scope";
+import { ComponentScope } from "../component/component-scope";
 import { getComponentExtensions } from "../component/component-extension-guard";
 
 export class Container {

@@ -8,7 +8,7 @@ import {
 	COMPONENT_NAME,
 	COMPONENT_SCOPE,
 } from "../metadata";
-import { ComponentScope } from "./scope";
+import { ComponentScope } from "./component-scope";
 
 /**
  * 添加组件扩展

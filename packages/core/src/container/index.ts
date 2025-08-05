@@ -1,2 +1,2 @@
-export * from "./core";
+export * from "./container-core";
 export * from "./extension";
