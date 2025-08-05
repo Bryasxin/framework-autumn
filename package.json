@@ -1,28 +1,7 @@
 {
 	"name": "spring-like",
 	"version": "1.0.0",
-	"module": "src/index.ts",
 	"type": "module",
-	"scripts": {
-		"test": "bun test",
-		"build": "tsc -p tsconfig.build.json",
-		"bundle": "bun build packages/core/src/index.ts --outdir dist --external reflect-metadata --external type-fest",
-		"bundle:minify": "bun build packages/core/src/index.ts --outdir dist --external reflect-metadata --external type-fest --minify",
-		"bundle:watch": "bun build packages/core/src/index.ts --outdir dist --external reflect-metadata --external type-fest --watch",
-		"build:all": "bun run build && bun run bundle"
-	},
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
-	"exports": {
-		".": {
-			"import": "./dist/index.js",
-			"types": "./dist/index.d.ts"
-		}
-	},
-	"files": [
-		"dist",
-		"packages/core/src"
-	],
 	"devDependencies": {
 		"@biomejs/biome": "^2.1.3",
 		"@types/bun": "^1.2.19",
