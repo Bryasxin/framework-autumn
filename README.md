@@ -43,3 +43,7 @@ container.register(MyController);
 const controller = await container.get(MyController);
 console.log(controller.handleRequest());
 ```
+
+## 备注
+
+暂时不准备使用 monorepo 构建，代码量较小。
