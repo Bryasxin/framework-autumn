@@ -1,9 +1,5 @@
 import type { Constructor } from "type-fest";
-import {
-	COMPONENT_CONSTRUCTOR_DEPENDENCIES,
-	COMPONENT_NAME,
-	COMPONENT_SCOPE,
-} from "../metadata";
+import { COMPONENT_CONSTRUCTOR_DEPENDENCIES, COMPONENT_NAME, COMPONENT_SCOPE } from "../metadata";
 
 /**
  * 检测目标是不是组件
@@ -38,9 +34,7 @@ export const getComponentScope = <T extends object>(target: T) => {
  * @param target 目标
  * @throws {TypeError} 如果不是组件
  */
-export const getComponentConstructorDependencies = <T extends object>(
-	target: T,
-): Constructor<unknown>[] => {
+export const getComponentConstructorDependencies = <T extends object>(target: T): Constructor<unknown>[] => {
 	if (!isComponent(target)) throw new TypeError();
 	return Reflect.getMetadata(COMPONENT_CONSTRUCTOR_DEPENDENCIES, target) ?? [];
 };

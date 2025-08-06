@@ -6,9 +6,7 @@ import type { IComponentExtension } from "./type";
  * @param extension 组件扩展
  */
 
-export const AddExtension = (
-	extension: IComponentExtension,
-): ClassDecorator => {
+export const AddExtension = (extension: IComponentExtension): ClassDecorator => {
 	return <T extends Function>(target: T) => {
 		addComponentExtension(target, extension);
 	};
