@@ -1,6 +1,9 @@
 import { defineConfig } from "tsdown";
 
 export default defineConfig({
-	entry: "./src/exports/index.ts",
+	entry: "./src/index.ts",
 	tsconfig: "./tsconfig.json",
+	workspace: "packages/*",
+	dts: true,
+	outDir: "./dist",
 });
