@@ -1,4 +1,4 @@
-export * from "./component-extension-guard";
-export * from "./component-guard";
+export * from "./extension-guard";
+export * from "./guard";
 export * from "./decorator";
-export * from "./component-scope";
+export * from "./scope";

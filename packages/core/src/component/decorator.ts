@@ -1,14 +1,14 @@
 import {
 	addComponentExtension,
 	type IComponentExtension,
-} from "./component-extension-guard";
+} from "./extension-guard";
 import "reflect-metadata";
 import {
 	COMPONENT_CONSTRUCTOR_DEPENDENCIES,
 	COMPONENT_NAME,
 	COMPONENT_SCOPE,
 } from "../metadata";
-import { ComponentScope } from "./component-scope";
+import { ComponentScope } from "./scope";
 
 /**
  * 添加组件扩展
