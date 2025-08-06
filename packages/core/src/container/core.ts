@@ -78,17 +78,20 @@ export class Container {
 	 * 清空依赖
 	 */
 	public static async clear() {
-		for (let component of Container.instances.values()) {
-			component = Container.extensionManager.preDestroyComponent(component);
+		for (const [componentName, component] of Container.instances.entries()) {
+			let processedComponent: object = Container.extensionManager.preDestroyComponent(component);
 
-			for (const extension of getComponentExtensions(component)) {
-				if (extension.preDestroy) component = await extension.preDestroy(component);
+			for (const extension of getComponentExtensions(processedComponent)) {
+				if (extension.preDestroy) {
+					processedComponent = await extension.preDestroy(processedComponent);
+				}
 			}
 
-			await Promise.all([
-				Container.extensionManager.postDestroyComponent(),
-				Container.extensionManager.postDestroyComponent(),
-			]);
+			await Container.extensionManager.postDestroyComponent();
+
+			Container.instances.delete(componentName);
 		}
+
+		Container.registry.clear();
 	}
 }
