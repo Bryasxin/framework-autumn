@@ -1,60 +1,64 @@
 import { ContainerExtensionManager } from "./extension/manager";
-import {
-	getComponentConstructorDependencies,
-	getComponentName,
-	getComponentScope,
-} from "../component";
+import { getComponentConstructorDependencies, getComponentName, getComponentScope } from "../component";
 import type { Constructor } from "type-fest";
 import { ComponentScope } from "../component/scope";
 import { getComponentExtensions } from "../component/extension/guard";
 
+// biome-ignore lint/complexity/noStaticOnlyClass: 核心容器组件需要单例化
 export class Container {
-	private extensionManager = new ContainerExtensionManager();
-	private registry: Map<string, Constructor<unknown>> = new Map();
-	private instances: Map<string, unknown> = new Map();
+	private static extensionManager = new ContainerExtensionManager();
+	private static registry: Map<string, Constructor<object>> = new Map();
+	private static instances: Map<string, object> = new Map();
 
 	/**
 	 * 注册组件
-	 * @param component 组件
+	 * @param component 组件构造函数
 	 * @throws {Error} 已经注册该组件
 	 * @throws {TypeError} 传入参数不是组件
 	 */
-	public register<T>(component: Constructor<T>) {
+	public static register<T extends object>(component: Constructor<T>) {
 		const componentName = getComponentName(component);
-		if (this.registry.has(componentName)) {
+		if (Container.registry.has(componentName)) {
 			throw new Error();
 		}
-		this.registry.set(componentName, component);
+		Container.registry.set(componentName, component);
 	}
 
-	public async get<T>(component: Constructor<T>): Promise<T> {
+	/**
+	 * 获取组件
+	 * @param component 组件构造函数
+	 */
+	public static async get<T>(component: Constructor<T>): Promise<T> {
 		const componentName = getComponentName(component);
 		const scope = getComponentScope(component);
 
 		switch (scope) {
 			case ComponentScope.Prototype: {
-				return this.createInstance(component);
+				return Container.createInstance(component);
 			}
 			case ComponentScope.Singleton: {
-				if (this.instances.has(componentName)) {
+				if (Container.instances.has(componentName)) {
 					// biome-ignore lint/style/noNonNullAssertion: 已经检查是否存在
-					return this.instances.get(componentName)! as T;
+					return Container.instances.get(componentName)! as T;
 				}
-				const instance = this.createInstance(component);
-				this.instances.set(componentName, instance);
+				const instance = Container.createInstance(component);
+				Container.instances.set(componentName, instance);
 				return instance;
 			}
 		}
 		throw new Error(`Unreachable code`);
 	}
 
-	private async createInstance<T>(component: Constructor<T>): Promise<T> {
-		await this.extensionManager.preInitializeComponent();
+	/**
+	 * 自动解析构造函数并创建实例
+	 * @param component 组件构造函数
+	 * @returns
+	 */
+	private static async createInstance<T>(component: Constructor<T>): Promise<T> {
+		await Container.extensionManager.preInitializeComponent();
 
 		const dependencies = await Promise.all(
-			getComponentConstructorDependencies(component).map((dep) =>
-				this.get(dep),
-			),
+			getComponentConstructorDependencies(component).map((dep) => Container.get(dep)),
 		);
 
 		let instance = new component(...dependencies);
@@ -66,7 +70,25 @@ export class Container {
 			}
 		}
 
-		instance = await this.extensionManager.postInitializeComponent(instance);
+		instance = await Container.extensionManager.postInitializeComponent(instance);
 		return instance;
+	}
+
+	/**
+	 * 清空依赖
+	 */
+	public static async clear() {
+		for (let component of Container.instances.values()) {
+			component = Container.extensionManager.preDestroyComponent(component);
+
+			for (const extension of getComponentExtensions(component)) {
+				if (extension.preDestroy) component = await extension.preDestroy(component);
+			}
+
+			await Promise.all([
+				Container.extensionManager.postDestroyComponent(),
+				Container.extensionManager.postDestroyComponent(),
+			]);
+		}
 	}
 }
