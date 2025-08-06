@@ -2,23 +2,31 @@
 	"name": "autumn",
 	"version": "0.0.0",
 	"type": "module",
-
+	"files": [
+		"dist"
+	],
+	"main": "dist/exports/index.js",
+	"module": "dist/exports/index.js",
+	"types": "dist/exports/index.d.ts",
+	"exports": {
+		".": "./dist/exports/index.js"
+	},
 	"scripts": {
+		"build": "tsdown",
 		"test": "bun test",
 		"lint": "biome lint .",
 		"format": "biome format --write .",
 		"check": "biome check --write ."
 	},
-
 	"devDependencies": {
-		"type-fest": "^4.41.0",
 		"@biomejs/biome": "^2.1.3",
 		"@types/bun": "latest",
+		"tsdown": "^0.13.3",
+		"type-fest": "^4.41.0",
 		"typescript": "^5"
 	},
 	"dependencies": {
 		"reflect-metadata": "^0.2.2"
 	},
-
 	"packageManager": "bun@1.2.19"
 }
