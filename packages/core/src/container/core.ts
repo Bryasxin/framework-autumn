@@ -1,4 +1,4 @@
-import { ContainerExtensionManager } from "./extension-manager";
+import { ContainerExtensionManager } from "./extension/manager";
 import {
 	getComponentConstructorDependencies,
 	getComponentName,
@@ -6,7 +6,7 @@ import {
 } from "../component";
 import type { Constructor } from "type-fest";
 import { ComponentScope } from "../component/scope";
-import { getComponentExtensions } from "../component/extension-guard";
+import { getComponentExtensions } from "../component/extension/guard";
 
 export class Container {
 	private extensionManager = new ContainerExtensionManager();

@@ -1,9 +1,5 @@
-import { COMPONENT_EXTENSION } from "../metadata";
-
-export interface IComponentExtension {
-	postInitialize?<T>(instance: T): Promise<T>;
-	preDestroy?<T>(instance: T): Promise<T>;
-}
+import { COMPONENT_EXTENSION } from "../../metadata";
+import type { IComponentExtension } from "./type";
 
 /**
  * 获取组件所有扩展

@@ -1,7 +1,3 @@
-import {
-	addComponentExtension,
-	type IComponentExtension,
-} from "./extension-guard";
 import "reflect-metadata";
 import {
 	COMPONENT_CONSTRUCTOR_DEPENDENCIES,
@@ -9,18 +5,6 @@ import {
 	COMPONENT_SCOPE,
 } from "../metadata";
 import { ComponentScope } from "./scope";
-
-/**
- * 添加组件扩展
- * @param extension 组件扩展
- */
-export const AddExtension = (
-	extension: IComponentExtension,
-): ClassDecorator => {
-	return <T extends Function>(target: T) => {
-		addComponentExtension(target, extension);
-	};
-};
 
 /**
  * 标记为组件

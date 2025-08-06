@@ -1,4 +1,4 @@
-import type { IContainerExtension } from "./extension";
+import type { IContainerExtension } from "./type";
 
 export class ContainerExtensionManager {
 	private extensions: IContainerExtension[] = [];
