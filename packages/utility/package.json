@@ -1,0 +1,21 @@
+{
+	"name": "autumn-utility",
+	"files": [
+		"./dist/index.ts"
+	],
+	"exports": {
+		".": "./dist/index.ts",
+		"./package.json": "./package.json"
+	},
+	"types": "./dist.index.d.mts",
+	"main": "./dist/index.ts",
+	"module": "./dist/index.ts",
+	"type": "module",
+	"devDependencies": {
+		"type-fest": "catalog:",
+		"typescript": "catalog:"
+	},
+	"dependencies": {
+		"reflect-metadata": "catalog:"
+	}
+}
