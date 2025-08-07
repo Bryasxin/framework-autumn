@@ -1,0 +1,5 @@
+{
+	"explorer.fileNesting.patterns": {
+		"package.json": "bun.lock, biome.json, .gitignore, tsconfig.json, tsdown.config.ts"
+	}
+}
