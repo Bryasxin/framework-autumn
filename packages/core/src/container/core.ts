@@ -27,10 +27,14 @@ export class Container {
 	/**
 	 * 获取组件
 	 * @param component 组件构造函数
+	 * @throws {Error} 未注册该组件
+	 * @throws {TypeError} 传入参数不是组件
 	 */
 	public static async get<T>(component: Constructor<T>): Promise<T> {
 		const componentName = getComponentName(component);
 		const scope = getComponentScope(component);
+
+		if (!Container.registry.has(componentName)) throw new Error();
 
 		switch (scope) {
 			case ComponentScope.Prototype: {
@@ -52,7 +56,7 @@ export class Container {
 	/**
 	 * 自动解析构造函数并创建实例
 	 * @param component 组件构造函数
-	 * @returns
+	 * @throws {TypeError} 传入的不是组件
 	 */
 	private static async createInstance<T>(component: Constructor<T>): Promise<T> {
 		await Container.extensionManager.preInitializeComponent();
