@@ -11,7 +11,8 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true
-		}
+		},
+		"includes": ["packages/**/src/**/*"]
 	},
 	"assist": {
 		"enabled": true,
