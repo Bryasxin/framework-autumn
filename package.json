@@ -27,5 +27,15 @@
 	"workspaces": [
 		"packages/*"
 	],
+	"files": [
+		"packages/**/dist/*"
+	],
+	"exports": {
+		".": "./packages/core/dist/index.mjs",
+		"./utility": "./packages/utility/dist/index.mjs",
+		"./package.json": "./package.json"
+	},
+	"types": "./dist.index.d.mts",
+
 	"packageManager": "bun@1.2.19"
 }

@@ -1,5 +1,7 @@
 # Autumn
 
+[![Checked with Biome](https://img.shields.io/badge/Checked_with-Biome-60a5fa?style=flat&logo=biome)](https://biomejs.dev)
+
 一个类似 Spring 的轻量级 JavaScript/TypeScript 依赖注入框架，基于 Bun 运行时构建。
 
 ## 特性
@@ -35,15 +37,14 @@ class MyController {
 }
 
 // 创建容器并注册组件
-const container = new Container();
-container.register(MyService);
-container.register(MyController);
+Container.register(MyService);
+Container.register(MyController);
 
 // 获取并使用组件
 const controller = await container.get(MyController);
 console.log(controller.handleRequest());
 ```
 
-## 备注
+## 作者
 
-暂时不准备使用 monorepo 构建，代码量较小。
+[halflinef(BiliBili)](https://space.bilibili.com/1566416823)
